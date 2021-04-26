@@ -25,7 +25,8 @@ RUN cd /var/www/html ;\
     tar -xzvf *.tgz ;\
     rm -f *.tgz
 
-RUN chmod -R +x /var/www/html
+RUN chmod -R +x /var/www/html ; \
+    chown -R 0:0 /var/www/html/moodle
 
 CMD apachectl -D FOREGROUND
 
