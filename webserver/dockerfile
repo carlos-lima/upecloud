@@ -15,7 +15,8 @@ RUN apt -y update && apt -y upgrade; \
                        php7.3-xmlrpc \
                        php7.3-intl;
 
-RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf
+RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf ; \
+    sed -i 's/\/html/\/html\/moodle/g' /etc/apache2/sites-enabled/000-default.conf
 
 ADD https://download.moodle.org/download.php/direct/stable310/moodle-latest-310.tgz /var/www/html
 
