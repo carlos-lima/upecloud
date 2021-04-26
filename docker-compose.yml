@@ -15,5 +15,7 @@ services:
         build: https://raw.githubusercontent.com/carlos-lima/upecloud/master/webserver/dockerfile
         ports:
             - 8080:8080
+        depends_on: 
+            - mysql            
 volumes:
     mysqldata: {}
