@@ -1,0 +1,30 @@
+FROM ubuntu:latest
+
+RUN apt -y update && apt -y upgrade; \
+    apt-get install -y software-properties-common tzdata; \
+    add-apt-repository -y ppa:ondrej/php; \
+    apt-get -y update; \
+    apt-get install -y php7.3 \
+                       php7.3-curl \
+                       php7.3-zip \
+                       php7.3-mysql \
+                       php7.3-xml \
+                       php7.3-mbstring \
+                       php7.3-gd \
+                       php7.3-soap \
+                       php7.3-xmlrpc \
+                       php7.3-intl;
+
+RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf
+
+ADD https://download.moodle.org/download.php/direct/stable310/moodle-latest-310.tgz /var/www/html
+
+RUN cd /var/www/html ;\
+    tar -xzvf *.tgz ;\
+    rm -f *.tgz
+
+RUN chmod -R +x /var/www/html
+
+CMD apachectl -D FOREGROUND
+
+EXPOSE 8080
