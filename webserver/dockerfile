@@ -16,17 +16,18 @@ RUN apt -y update && apt -y upgrade; \
                        php7.3-intl;
 
 RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf ; \
-    sed -i 's/\/html/\/html\/moodle/g' /etc/apache2/sites-enabled/000-default.conf ; \
-    sed -i 's/80/8080/g' /etc/apache2/sites-enabled/000-default.conf
+    sed -i 's/\/html/\/html\/moodle/g' /etc/apache2/sites-enabled/000-default.conf
+    
+ADD https://download.moodle.org/download.php/direct/stable310/moodle-latest-310.tgz /var/www/
 
-ADD https://download.moodle.org/download.php/direct/stable310/moodle-latest-310.tgz /var/www/html
-
-RUN cd /var/www/html ;\
+RUN cd /var/www/ ;\
     tar -xzvf *.tgz ;\
     rm -f *.tgz
 
-RUN chmod -R +x /var/www/html ; \
-    chown -R 0:0 /var/www/html/moodle
+RUN chmod -R +x /var/www/moodle ; \
+    chown -R 0:0 /var/www/moodle ; \
+    rm -fr /var/www/html ; \
+    mv /var/www/moodle /var/www/html
 
 CMD apachectl -D FOREGROUND
 
