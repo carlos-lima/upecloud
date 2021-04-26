@@ -18,6 +18,6 @@ services:
         depends_on: 
             - mysql
         cpus: '0.1'
-        mem_limit: 20M
+        mem_limit: 200M
 volumes:
     mysqldata: {}
